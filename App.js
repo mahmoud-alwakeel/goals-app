@@ -1,31 +1,23 @@
 // import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, FlatList, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, StyleSheet, TextInput, View } from 'react-native';
+import GoalItem from './components/goal_item';
+import GoalInput from './components/goal_input';
 
 export default function App() {
-  const [enteredGoalText, setEnteredGoalText] = useState('');
   const [goals, setGoals] = useState([]);
-  function goalInputHandler(enteredText) {
-    setEnteredGoalText(enteredText);
-  }
 
-  function goalClickedHandler() {
+
+  function goalClickedHandler(enteredGoalText) {
     setGoals((currentGoals) => [...currentGoals, { text: enteredGoalText, key: Math.random().toString() },]);
   }
 
   return (
     <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput placeholder='Your course goal!' style={styles.inputText} onChangeText={goalInputHandler} />
-        <Button title='Add goal' onPress={goalClickedHandler} />
-      </View>
+      <GoalInput onAddGoal = {goalClickedHandler}/>
       <View style={styles.goalsContainer}>
         <FlatList data={goals} renderItem={(itemData) => {
-          return (
-            <View style={styles.goalItem}>
-              <Text style={styles.goalItemText}>{itemData.item.text}</Text>
-            </View>
-          );
+          return <GoalItem text={itemData.item.text}/>;
         }} />
       </View>
     </View>
@@ -38,24 +30,8 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 16
   },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: 'center',
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: 'grey'
-  },
   goalsContainer: {
     flex: 5,
-  },
-  inputText: {
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    width: '70%',
-    marginRight: 8,
-    padding: 8,
   },
   text: {
     margin: 16,
@@ -63,13 +39,4 @@ const styles = StyleSheet.create({
     borderColor: "red",
     padding: 16,
   },
-  goalItem: {
-    margin: 8,
-    padding: 8,
-    borderRadius: 6,
-    backgroundColor: 'purple',
-  },
-  goalItemText: {
-    color: 'white'
-  }
 });
