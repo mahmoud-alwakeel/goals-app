@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, FlatList, StyleSheet, TextInput, View } from 'react-native';
 import GoalItem from './components/goal_item';
 import GoalInput from './components/goal_input';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const [goals, setGoals] = useState([]);
@@ -30,6 +31,8 @@ export default function App() {
   }
 
   return (
+    <>
+    <StatusBar style='light'/>
     <View style={styles.appContainer}>
       <Button
         title='Add Goal'
@@ -50,6 +53,7 @@ export default function App() {
         />
       </View>
     </View>
+    </>
   );
 }
 

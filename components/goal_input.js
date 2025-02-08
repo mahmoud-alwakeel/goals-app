@@ -1,4 +1,4 @@
-import { Button, Modal, StyleSheet, TextInput, View } from 'react-native';
+import { Button, Modal, StyleSheet, TextInput, View, Image } from 'react-native';
 import { useState } from 'react';
 
 function GoalInput(props) {
@@ -15,6 +15,7 @@ function GoalInput(props) {
     return (
         <Modal visible={props.visible} animationType='slide'>
             <View style={styles.inputContainer}>
+                <Image style={styles.image} source={require('../assets/images/goal_img.png')} />
                 <TextInput
                     placeholder='Your course goal!'
                     style={styles.inputText}
@@ -23,10 +24,10 @@ function GoalInput(props) {
                 />
                 <View style={styles.buttonContainer}>
                     <View style={styles.buttons} >
-                    <Button title='Add goal' onPress={addGoalHandler} />
+                    <Button title='Add goal' onPress={addGoalHandler} color='#b180f0'/>
                     </View>
                     <View style={styles.buttons} >
-                    <Button title='Cancel' onPress={props.onCancel} />
+                    <Button title='Cancel' onPress={props.onCancel} color='#5e0acc'/>
                     </View>
                 </View>
             </View>
@@ -44,16 +45,17 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: 'center',
-        marginBottom: 24,
-        borderBottomWidth: 1,
-        borderBottomColor: 'grey'
+        backgroundColor: '#311b6b'
     },
     inputText: {
         borderWidth: 1,
-        borderColor: '#cccccc',
+        borderColor: '#e4d0ff',
+        backgroundColor: '#e4d0ff',
         width: '100%',
         marginRight: 8,
         padding: 8,
+        marginTop: 24,
+        borderRadius: 6,
     },
     buttonContainer: {
         marginTop: 16,
@@ -62,5 +64,9 @@ const styles = StyleSheet.create({
     buttons: {
         width: '30%',
         marginHorizontal: 8,
-    }
+    },
+    image: {
+        width: 100,
+        height: 100,
+    },
 });
