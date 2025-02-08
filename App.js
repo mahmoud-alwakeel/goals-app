@@ -1,4 +1,3 @@
-// import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { FlatList, StyleSheet, TextInput, View } from 'react-native';
 import GoalItem from './components/goal_item';
@@ -9,16 +8,32 @@ export default function App() {
 
 
   function goalClickedHandler(enteredGoalText) {
-    setGoals((currentGoals) => [...currentGoals, { text: enteredGoalText, key: Math.random().toString() },]);
+    setGoals((currentGoals) => [...currentGoals, {
+      text: enteredGoalText,
+      id: Math.random().toString()
+    },]);
+  }
+
+  function deleteGoalHandler(id) {
+    setGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== id);
+    })
   }
 
   return (
     <View style={styles.appContainer}>
-      <GoalInput onAddGoal = {goalClickedHandler}/>
+      <GoalInput onAddGoal={goalClickedHandler} />
       <View style={styles.goalsContainer}>
         <FlatList data={goals} renderItem={(itemData) => {
-          return <GoalItem text={itemData.item.text}/>;
-        }} />
+          return (
+            <GoalItem 
+          text={itemData.item.text} 
+          id={itemData.item.id}
+          onDeleteItem={deleteGoalHandler}/>
+          );
+        }} 
+        keyExtractor={(item, index) => {return item.id}}
+        />
       </View>
     </View>
   );

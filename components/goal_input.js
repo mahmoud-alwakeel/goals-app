@@ -3,16 +3,23 @@ import { useState } from 'react';
 
 function GoalInput(props) {
     const [enteredGoalText, setEnteredGoalText] = useState('');
+
     function goalInputHandler(enteredText) {
         setEnteredGoalText(enteredText);
     }
 
     function addGoalHandler() {
         props.onAddGoal(enteredGoalText);
+        setEnteredGoalText('');
     }
     return (
         <View style={styles.inputContainer}>
-            <TextInput placeholder='Your course goal!' style={styles.inputText} onChangeText={goalInputHandler} />
+            <TextInput
+                placeholder='Your course goal!'
+                style={styles.inputText}
+                onChangeText={goalInputHandler}
+                value={enteredGoalText}
+            />
             <Button title='Add goal' onPress={addGoalHandler} />
         </View>
     );
